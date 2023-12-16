@@ -1,0 +1,23 @@
+module half_adder(S, C, A, B);
+input A, B;
+output S, C;
+
+assign S = A^B;
+assign C = A&B;
+
+endmodule
+
+module adder_4b(in1, in2, Cin, Cout, sum);
+input in1, in2, Cin;
+output Cout, sum;
+
+wire I1, I2, I3, I4, I5, I6, I7;
+half_adder ha1(.A(in1), .B(in2), .S(I1), .C(I2));
+half_adder ha2(.A(I1), .B(Cin), .S(I3), .C(I4));
+half_adder ha3(.A(I2), .B(Cin), .S(I5), .C(I6));
+half_adder ha4(.A(I3), .B(Cin), .S(sum), .C(I7));
+
+assign Cout = I2 || I4 || I6 || I7;
+
+
+endmodule
